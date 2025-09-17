@@ -15,8 +15,6 @@ function convertToObject(sourceString) {
 
   // Catching the object properties and their values
   for (let i = 0; i < propertyLine.length; i++) {
-    propertyLine[i] = propertyLine[i].trim();
-
     if (propertyLine[i]) {
       propertyAndValue.push(propertyLine[i].split(':'));
     }
