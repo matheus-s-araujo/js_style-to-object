@@ -6,24 +6,30 @@
  * @return {object}
  */
 function convertToObject(sourceString) {
-  const linesArr = sourceString.split(';');
-  const objPropertiesArr = [];
-  const finalObject = {};
+  const propertyLine = sourceString
+    .split(';')
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const propertyAndValue = [];
+  const declaration = {};
 
   // Catching the object properties and their values
-  for (let i = 0; i < linesArr.length; i++) {
-    linesArr[i] = linesArr[i].trim();
+  for (let i = 0; i < propertyLine.length; i++) {
+    propertyLine[i] = propertyLine[i].trim();
 
-    if (linesArr[i]) {
-      objPropertiesArr.push(linesArr[i].split(':'));
+    if (propertyLine[i]) {
+      propertyAndValue.push(propertyLine[i].split(':'));
     }
   }
 
-  for (let j = 0; j < objPropertiesArr.length; j++) {
-    finalObject[objPropertiesArr[j][0].trim()] = objPropertiesArr[j][1].trim();
+  for (let j = 0; j < propertyAndValue.length; j++) {
+    if (propertyAndValue[j][1].trim().length > 0) {
+      declaration[propertyAndValue[j][0].trim()] =
+        propertyAndValue[j][1].trim();
+    }
   }
 
-  return finalObject;
+  return declaration;
 }
 
 module.exports = convertToObject;
